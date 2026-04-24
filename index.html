@@ -1,0 +1,2260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ElectroAgs — La tienda de electrodomésticos #1 en Aguascalientes. Samsung, LG, Bosch, Mabe y más. Envío gratis, instalación y financiamiento sin intereses.">
+<title>ElectroAgs | Electrodomésticos #1 en Aguascalientes</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   VARIABLES & RESET
+═══════════════════════════════════════════ */
+:root {
+  --c-bg:        #09090B;
+  --c-surface:   #111114;
+  --c-card:      #18181C;
+  --c-border:    #27272A;
+  --c-border2:   #3F3F46;
+  --c-text:      #FAFAFA;
+  --c-muted:     #A1A1AA;
+  --c-subtle:    #52525B;
+  --c-red:       #E11D48;
+  --c-red-light: #FB7185;
+  --c-red-dark:  #9F1239;
+  --c-amber:     #F59E0B;
+  --c-green:     #22C55E;
+  --c-blue:      #3B82F6;
+  --c-white:     #FFFFFF;
+  --r:           14px;
+  --r-lg:        20px;
+  --shadow-red:  0 0 60px rgba(225,29,72,.18);
+  --transition:  all .28s cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:'Outfit',sans-serif;
+  background:var(--c-bg);
+  color:var(--c-text);
+  overflow-x:hidden;
+  line-height:1.6;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;font-family:'Outfit',sans-serif}
+
+/* ═══ SCROLLBAR ═══ */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--c-bg)}
+::-webkit-scrollbar-thumb{background:var(--c-red);border-radius:3px}
+
+/* ═══ CURSOR GLOW ═══ */
+#cursor-glow{
+  position:fixed;width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(225,29,72,.06) 0%,transparent 70%);
+  pointer-events:none;z-index:0;transform:translate(-50%,-50%);
+  transition:opacity .4s;
+}
+
+/* ═══════════════════════════════════════════
+   ANNOUNCEMENT BAR
+═══════════════════════════════════════════ */
+.announce-bar{
+  background:var(--c-red);
+  padding:.55rem 1rem;
+  text-align:center;
+  font-size:.78rem;
+  font-weight:600;
+  letter-spacing:.5px;
+  position:relative;
+  z-index:100;
+  overflow:hidden;
+}
+.announce-bar::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(90deg,transparent,transparent 20px,rgba(255,255,255,.05) 20px,rgba(255,255,255,.05) 21px);
+}
+.announce-track{
+  display:inline-flex;gap:4rem;
+  animation:marquee 28s linear infinite;
+  white-space:nowrap;
+  position:relative;z-index:1;
+}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ═══════════════════════════════════════════
+   NAVBAR
+═══════════════════════════════════════════ */
+nav{
+  position:sticky;top:0;z-index:998;
+  background:rgba(9,9,11,.92);
+  backdrop-filter:blur(20px) saturate(180%);
+  border-bottom:1px solid var(--c-border);
+  height:68px;
+  display:flex;align-items:center;
+  padding:0 2.5rem;
+  gap:2rem;
+}
+.nav-logo{
+  font-family:'Syne',sans-serif;
+  font-size:1.5rem;font-weight:800;
+  letter-spacing:-1px;
+  color:var(--c-white);
+  flex-shrink:0;
+}
+.nav-logo em{color:var(--c-red);font-style:normal}
+.nav-links{
+  display:flex;gap:.2rem;list-style:none;flex:1;
+}
+.nav-links a{
+  color:var(--c-muted);font-size:.875rem;font-weight:500;
+  padding:.45rem .85rem;border-radius:8px;
+  transition:var(--transition);white-space:nowrap;
+}
+.nav-links a:hover{color:var(--c-white);background:rgba(255,255,255,.06)}
+.nav-actions{display:flex;gap:.75rem;align-items:center;flex-shrink:0}
+.nav-search{
+  display:flex;align-items:center;gap:.5rem;
+  background:var(--c-card);border:1px solid var(--c-border);
+  border-radius:10px;padding:.45rem .9rem;
+  transition:var(--transition);
+}
+.nav-search:focus-within{border-color:var(--c-red)}
+.nav-search input{
+  background:none;border:none;outline:none;
+  color:var(--c-text);font-size:.85rem;width:180px;
+  font-family:'Outfit',sans-serif;
+}
+.nav-search input::placeholder{color:var(--c-subtle)}
+.nav-icon-btn{
+  width:40px;height:40px;border-radius:10px;
+  background:var(--c-card);border:1px solid var(--c-border);
+  color:var(--c-muted);font-size:1.1rem;
+  display:flex;align-items:center;justify-content:center;
+  transition:var(--transition);position:relative;
+}
+.nav-icon-btn:hover{color:var(--c-white);border-color:var(--c-border2)}
+.nav-icon-btn .badge{
+  position:absolute;top:-5px;right:-5px;
+  background:var(--c-red);color:#fff;
+  width:18px;height:18px;border-radius:50%;
+  font-size:.65rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  border:2px solid var(--c-bg);
+}
+.btn-nav-cta{
+  background:var(--c-red);color:#fff;
+  padding:.5rem 1.3rem;border-radius:10px;
+  font-weight:700;font-size:.85rem;
+  border:none;transition:var(--transition);
+  white-space:nowrap;
+}
+.btn-nav-cta:hover{background:var(--c-red-dark);transform:translateY(-1px)}
+
+/* ═══════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════ */
+#inicio{
+  min-height:92vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;
+  gap:4rem;
+  padding:5rem 5vw;
+  position:relative;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;pointer-events:none;z-index:0;
+}
+.hero-bg-orb{
+  position:absolute;border-radius:50%;filter:blur(100px);
+}
+.orb1{width:600px;height:600px;background:rgba(225,29,72,.12);top:-100px;right:-100px}
+.orb2{width:400px;height:400px;background:rgba(59,130,246,.07);bottom:-100px;left:20%}
+.orb3{width:300px;height:300px;background:rgba(245,158,11,.05);top:30%;left:-100px}
+.hero-content{position:relative;z-index:1}
+.hero-label{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:rgba(225,29,72,.12);
+  border:1px solid rgba(225,29,72,.3);
+  color:var(--c-red-light);
+  font-size:.75rem;font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;padding:.4rem 1rem;border-radius:50px;
+  margin-bottom:1.5rem;
+  animation:fadeUp .8s ease both;
+}
+.hero-label::before{content:'●';font-size:.5rem;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero-h1{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(3rem,6vw,5.5rem);
+  font-weight:800;
+  line-height:.95;
+  letter-spacing:-2px;
+  margin-bottom:1.5rem;
+  animation:fadeUp .8s .1s ease both;
+}
+.hero-h1 .line2{
+  display:block;
+  background:linear-gradient(135deg,var(--c-red),var(--c-red-light),#FF8C42);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-h1 .line3{display:block;color:var(--c-muted);font-style:italic;font-family:'Instrument Serif',serif;font-weight:400;letter-spacing:0}
+.hero-desc{
+  font-size:1.05rem;color:var(--c-muted);
+  max-width:480px;line-height:1.75;margin-bottom:2.5rem;
+  animation:fadeUp .8s .2s ease both;
+}
+.hero-actions{
+  display:flex;gap:1rem;flex-wrap:wrap;
+  animation:fadeUp .8s .3s ease both;
+}
+.btn-hero{
+  display:inline-flex;align-items:center;gap:.6rem;
+  padding:.9rem 2rem;border-radius:12px;
+  font-weight:700;font-size:.95rem;
+  transition:var(--transition);border:none;
+}
+.btn-hero-primary{
+  background:var(--c-red);color:#fff;
+  box-shadow:0 0 40px rgba(225,29,72,.35);
+}
+.btn-hero-primary:hover{background:var(--c-red-dark);transform:translateY(-3px);box-shadow:0 0 60px rgba(225,29,72,.5)}
+.btn-hero-ghost{
+  background:transparent;color:var(--c-text);
+  border:1px solid var(--c-border2);
+}
+.btn-hero-ghost:hover{background:var(--c-card);border-color:var(--c-muted)}
+.hero-stats{
+  display:flex;gap:2.5rem;margin-top:3rem;padding-top:2rem;
+  border-top:1px solid var(--c-border);
+  animation:fadeUp .8s .4s ease both;
+}
+.hstat{display:flex;flex-direction:column}
+.hstat-n{
+  font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;
+  background:linear-gradient(135deg,var(--c-white),var(--c-muted));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hstat-l{font-size:.73rem;color:var(--c-subtle);letter-spacing:1px;text-transform:uppercase;margin-top:.1rem}
+
+/* HERO VISUAL */
+.hero-visual{position:relative;z-index:1;animation:fadeUp .8s .2s ease both}
+.hero-main-img{
+  width:100%;border-radius:24px;
+  border:1px solid var(--c-border);
+  box-shadow:0 30px 80px rgba(0,0,0,.6),var(--shadow-red);
+  overflow:hidden;position:relative;aspect-ratio:4/3;
+  background:linear-gradient(135deg,#1a1a1f,#27272A);
+  display:flex;align-items:center;justify-content:center;
+  font-size:8rem;
+}
+.hero-main-img img{
+  width:100%;height:100%;object-fit:cover;position:absolute;inset:0;
+}
+.hero-badge-float{
+  position:absolute;top:-18px;right:2rem;
+  background:var(--c-amber);color:#000;
+  font-weight:800;font-size:.8rem;
+  padding:.55rem 1.2rem;border-radius:50px;
+  box-shadow:0 8px 30px rgba(245,158,11,.4);
+  animation:bounce 3s ease-in-out infinite;
+  letter-spacing:.5px;
+}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.hero-cards-row{
+  display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem;
+}
+.hero-mini-card{
+  background:var(--c-card);border:1px solid var(--c-border);
+  border-radius:var(--r);padding:1rem 1.2rem;
+  display:flex;align-items:center;gap:.8rem;
+  transition:var(--transition);
+}
+.hero-mini-card:hover{border-color:var(--c-red);transform:translateY(-3px)}
+.hmc-icon{font-size:1.6rem}
+.hmc-label{font-size:.8rem;color:var(--c-muted)}
+.hmc-val{font-size:.95rem;font-weight:700;color:var(--c-text)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* ═══════════════════════════════════════════
+   TRUST BAR
+═══════════════════════════════════════════ */
+.trust-bar{
+  border-top:1px solid var(--c-border);
+  border-bottom:1px solid var(--c-border);
+  background:var(--c-surface);
+  padding:1.2rem 5vw;
+  display:flex;align-items:center;justify-content:space-evenly;
+  flex-wrap:wrap;gap:1.5rem;
+}
+.trust-item{
+  display:flex;align-items:center;gap:.7rem;
+  font-size:.85rem;font-weight:500;color:var(--c-muted);
+}
+.trust-item .ti-icon{font-size:1.3rem}
+.trust-item strong{color:var(--c-white)}
+
+/* ═══════════════════════════════════════════
+   SHARED SECTION STYLES
+═══════════════════════════════════════════ */
+.section{padding:6rem 5vw}
+.section-alt{background:var(--c-surface)}
+.sec-label{
+  display:inline-block;
+  color:var(--c-red);font-size:.72rem;font-weight:700;
+  letter-spacing:2.5px;text-transform:uppercase;
+  margin-bottom:.7rem;
+}
+.sec-title{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(1.8rem,3.5vw,2.8rem);
+  font-weight:800;letter-spacing:-1px;
+  line-height:1.1;
+  margin-bottom:.8rem;
+}
+.sec-title em{
+  font-style:italic;font-family:'Instrument Serif',serif;
+  font-weight:400;color:var(--c-red-light);
+}
+.sec-desc{color:var(--c-muted);max-width:560px;font-size:.95rem;line-height:1.75}
+.sec-header{margin-bottom:3.5rem}
+.sec-header-row{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:2rem;flex-wrap:wrap;
+  margin-bottom:3.5rem;
+}
+.sec-header-row .sec-desc{margin-top:.5rem}
+.btn-link{
+  display:inline-flex;align-items:center;gap:.4rem;
+  color:var(--c-red);font-weight:600;font-size:.88rem;
+  border:1px solid rgba(225,29,72,.3);
+  padding:.5rem 1.2rem;border-radius:50px;
+  transition:var(--transition);white-space:nowrap;
+  flex-shrink:0;
+}
+.btn-link:hover{background:rgba(225,29,72,.08);border-color:var(--c-red)}
+
+/* ═══════════════════════════════════════════
+   CATEGORIES GRID
+═══════════════════════════════════════════ */
+#categorias .cat-mega-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:1rem;
+}
+.cat-tile{
+  background:var(--c-card);
+  border:1px solid var(--c-border);
+  border-radius:var(--r-lg);
+  padding:1.6rem 1rem;
+  text-align:center;
+  transition:var(--transition);
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+}
+.cat-tile::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--c-red),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.cat-tile:hover{transform:translateY(-6px);border-color:var(--c-red);box-shadow:0 20px 50px rgba(225,29,72,.2)}
+.cat-tile:hover::before{opacity:.08}
+.cat-tile:hover .cat-icon{transform:scale(1.2) rotate(-5deg)}
+.cat-icon{font-size:2.4rem;margin-bottom:.7rem;display:block;transition:transform .3s}
+.cat-name{font-size:.85rem;font-weight:700;color:var(--c-text);margin-bottom:.25rem}
+.cat-count{font-size:.72rem;color:var(--c-subtle)}
+.cat-tile.featured{
+  grid-column:span 2;
+  background:linear-gradient(135deg,rgba(225,29,72,.15),rgba(225,29,72,.05));
+  border-color:rgba(225,29,72,.3);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+.cat-tile.featured .cat-icon{font-size:3.5rem}
+
+/* ═══════════════════════════════════════════
+   PRODUCTS
+═══════════════════════════════════════════ */
+#productos{padding-top:5rem}
+.filter-bar{
+  display:flex;gap:.6rem;flex-wrap:wrap;
+  margin-bottom:2.5rem;
+  padding:1rem;
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-radius:var(--r-lg);
+}
+.filter-btn{
+  padding:.45rem 1.1rem;border-radius:8px;
+  border:1px solid var(--c-border);
+  background:transparent;color:var(--c-muted);
+  font-size:.82rem;font-weight:500;
+  transition:var(--transition);
+}
+.filter-btn.on,.filter-btn:hover{
+  background:var(--c-red);color:#fff;border-color:var(--c-red);
+}
+.sort-bar{
+  display:flex;align-items:center;gap:1rem;
+  margin-left:auto;
+}
+.sort-select{
+  background:var(--c-card);border:1px solid var(--c-border);
+  color:var(--c-muted);padding:.4rem .8rem;border-radius:8px;
+  font-family:'Outfit',sans-serif;font-size:.82rem;
+  outline:none;
+}
+.prods-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(270px,1fr));
+  gap:1.5rem;
+}
+.prod-card{
+  background:var(--c-card);
+  border:1px solid var(--c-border);
+  border-radius:var(--r-lg);
+  overflow:hidden;
+  transition:var(--transition);
+  position:relative;
+  display:flex;flex-direction:column;
+}
+.prod-card:hover{
+  transform:translateY(-8px);
+  border-color:var(--c-border2);
+  box-shadow:0 30px 60px rgba(0,0,0,.5),0 0 30px rgba(225,29,72,.12);
+}
+.prod-img-wrap{
+  position:relative;height:210px;overflow:hidden;
+  background:linear-gradient(135deg,#1c1c22,#27272a);
+}
+.prod-img-wrap img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .5s ease;
+}
+.prod-card:hover .prod-img-wrap img{transform:scale(1.06)}
+.prod-img-emoji{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:5rem;
+}
+.prod-ribbon{
+  position:absolute;top:14px;left:14px;
+  padding:.25rem .7rem;border-radius:6px;
+  font-size:.68rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+  z-index:2;
+}
+.ribbon-sale{background:var(--c-red);color:#fff}
+.ribbon-new{background:var(--c-blue);color:#fff}
+.ribbon-top{background:var(--c-amber);color:#000}
+.ribbon-hot{background:linear-gradient(135deg,#ff5722,#ff8a00);color:#fff}
+.prod-fav{
+  position:absolute;top:12px;right:12px;z-index:2;
+  width:34px;height:34px;border-radius:50%;
+  background:rgba(0,0,0,.5);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.1);
+  color:#fff;font-size:.9rem;
+  display:flex;align-items:center;justify-content:center;
+  transition:var(--transition);cursor:pointer;
+}
+.prod-fav:hover{background:var(--c-red);border-color:var(--c-red)}
+.prod-body{padding:1.3rem;flex:1;display:flex;flex-direction:column}
+.prod-brand{font-size:.72rem;font-weight:700;color:var(--c-red);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:.4rem}
+.prod-name{font-size:.95rem;font-weight:700;line-height:1.35;margin-bottom:.5rem;color:var(--c-text)}
+.prod-specs{
+  display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.8rem;
+}
+.spec-chip{
+  font-size:.7rem;background:rgba(255,255,255,.05);
+  border:1px solid var(--c-border);
+  color:var(--c-muted);padding:.2rem .6rem;border-radius:5px;
+}
+.prod-rating{
+  display:flex;align-items:center;gap:.4rem;
+  font-size:.8rem;color:var(--c-amber);margin-bottom:.9rem;
+}
+.prod-rating span{color:var(--c-subtle);font-size:.75rem}
+.prod-footer{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  margin-top:auto;
+  padding-top:1rem;border-top:1px solid var(--c-border);
+}
+.prod-pricing{}
+.prod-old{font-size:.78rem;color:var(--c-subtle);text-decoration:line-through}
+.prod-price{font-family:'Syne',sans-serif;font-size:1.55rem;font-weight:800;color:var(--c-white);line-height:1}
+.prod-msi{font-size:.7rem;color:var(--c-green);font-weight:600;margin-top:.15rem}
+.prod-cta{
+  background:var(--c-red);color:#fff;border:none;
+  padding:.65rem 1.1rem;border-radius:10px;
+  font-size:.82rem;font-weight:700;
+  transition:var(--transition);
+  display:flex;align-items:center;gap:.4rem;
+  white-space:nowrap;
+}
+.prod-cta:hover{background:var(--c-red-dark);transform:scale(1.04)}
+
+/* ═══════════════════════════════════════════
+   BRANDS MARQUEE
+═══════════════════════════════════════════ */
+#marcas{padding:4rem 0;overflow:hidden;border-top:1px solid var(--c-border);border-bottom:1px solid var(--c-border)}
+.brands-track{
+  display:flex;gap:3rem;
+  animation:scroll-brands 30s linear infinite;
+  width:max-content;
+}
+.brands-track:hover{animation-play-state:paused}
+@keyframes scroll-brands{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.brand-item{
+  display:flex;align-items:center;justify-content:center;
+  background:var(--c-card);border:1px solid var(--c-border);
+  border-radius:var(--r);padding:1rem 2.2rem;
+  min-width:140px;height:64px;
+  font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;
+  color:var(--c-subtle);letter-spacing:1px;
+  transition:var(--transition);flex-shrink:0;
+  text-transform:uppercase;
+}
+.brand-item:hover{color:var(--c-white);border-color:var(--c-border2);background:var(--c-surface)}
+
+/* ═══════════════════════════════════════════
+   FLASH SALE BANNER
+═══════════════════════════════════════════ */
+#flash-sale{
+  background:linear-gradient(135deg,#1a0009 0%,#3b0015 30%,#1a0009 100%);
+  border-top:1px solid rgba(225,29,72,.2);
+  border-bottom:1px solid rgba(225,29,72,.2);
+  padding:5rem 5vw;
+  position:relative;overflow:hidden;
+}
+#flash-sale::before{
+  content:'SALE';
+  position:absolute;
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:22rem;letter-spacing:-10px;
+  color:rgba(225,29,72,.04);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  pointer-events:none;white-space:nowrap;
+}
+.flash-inner{
+  display:grid;grid-template-columns:1fr auto;
+  align-items:center;gap:4rem;position:relative;z-index:1;
+}
+.flash-content .flash-tag{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:rgba(225,29,72,.2);border:1px solid rgba(225,29,72,.4);
+  color:var(--c-red-light);font-size:.75rem;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;padding:.4rem 1rem;border-radius:50px;margin-bottom:1.2rem;
+}
+.flash-title{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(2.5rem,5vw,4.5rem);
+  font-weight:800;letter-spacing:-2px;
+  line-height:.95;margin-bottom:1rem;
+}
+.flash-title span{color:var(--c-red)}
+.flash-desc{color:var(--c-muted);margin-bottom:2rem;font-size:1.05rem}
+.flash-cta{
+  background:var(--c-red);color:#fff;border:none;
+  padding:1rem 2.5rem;border-radius:12px;
+  font-weight:700;font-size:1rem;
+  transition:var(--transition);
+  box-shadow:0 0 50px rgba(225,29,72,.4);
+}
+.flash-cta:hover{transform:translateY(-3px);box-shadow:0 0 70px rgba(225,29,72,.6)}
+.countdown-box{
+  display:flex;gap:1rem;
+}
+.cd-unit{
+  background:rgba(0,0,0,.5);backdrop-filter:blur(10px);
+  border:1px solid rgba(225,29,72,.2);
+  border-radius:var(--r);padding:1.5rem 1.8rem;
+  text-align:center;min-width:90px;
+}
+.cd-n{
+  font-family:'Syne',sans-serif;font-size:3rem;font-weight:800;
+  color:var(--c-white);line-height:1;display:block;
+}
+.cd-l{font-size:.65rem;text-transform:uppercase;letter-spacing:2px;color:var(--c-subtle);margin-top:.3rem}
+
+/* ═══════════════════════════════════════════
+   SERVICES
+═══════════════════════════════════════════ */
+#servicios .services-mega{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1.5rem;
+}
+.svc-card{
+  background:var(--c-card);
+  border:1px solid var(--c-border);
+  border-radius:var(--r-lg);
+  padding:2rem;
+  transition:var(--transition);
+  position:relative;overflow:hidden;
+}
+.svc-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;
+  height:3px;background:linear-gradient(90deg,var(--c-red),transparent);
+  transform:scaleX(0);transform-origin:left;transition:transform .3s;
+}
+.svc-card:hover{border-color:rgba(225,29,72,.3);transform:translateY(-5px)}
+.svc-card:hover::after{transform:scaleX(1)}
+.svc-icon-wrap{
+  width:52px;height:52px;border-radius:14px;
+  background:rgba(225,29,72,.1);border:1px solid rgba(225,29,72,.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.6rem;margin-bottom:1.2rem;
+  transition:var(--transition);
+}
+.svc-card:hover .svc-icon-wrap{background:var(--c-red);border-color:var(--c-red)}
+.svc-title{font-size:1rem;font-weight:700;margin-bottom:.5rem}
+.svc-desc{font-size:.83rem;color:var(--c-muted);line-height:1.65}
+.svc-link{
+  display:inline-flex;align-items:center;gap:.3rem;
+  color:var(--c-red);font-size:.8rem;font-weight:600;
+  margin-top:.9rem;opacity:0;transition:opacity .25s;
+}
+.svc-card:hover .svc-link{opacity:1}
+
+/* ═══════════════════════════════════════════
+   FEATURED PROMOS (2-column feature cards)
+═══════════════════════════════════════════ */
+#promos{padding:5rem 5vw}
+.promos-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1.5rem;
+}
+.promo-card{
+  border-radius:var(--r-lg);
+  padding:3rem 2.5rem;
+  border:1px solid var(--c-border);
+  position:relative;overflow:hidden;
+  min-height:220px;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  transition:var(--transition);
+}
+.promo-card:hover{transform:translateY(-4px);box-shadow:0 30px 60px rgba(0,0,0,.4)}
+.pc1{background:linear-gradient(135deg,#0f1f0f,#1a3a1a)}
+.pc2{background:linear-gradient(135deg,#0f0f1f,#1a1a3a)}
+.pc3{background:linear-gradient(135deg,#1f0f0f,#3a1a1a)}
+.pc4{background:linear-gradient(135deg,#1f1a0f,#3a300a)}
+.promo-bg-emoji{
+  position:absolute;top:50%;right:2rem;
+  transform:translateY(-50%);
+  font-size:7rem;opacity:.15;
+  transition:var(--transition);
+}
+.promo-card:hover .promo-bg-emoji{transform:translateY(-50%) scale(1.1);opacity:.25}
+.promo-tag{
+  font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(255,255,255,.5);margin-bottom:.5rem;
+}
+.promo-title{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:.4rem}
+.promo-sub{font-size:.85rem;color:rgba(255,255,255,.6);margin-bottom:1.2rem}
+.promo-btn{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:rgba(255,255,255,.12);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.2);color:#fff;
+  padding:.55rem 1.2rem;border-radius:8px;font-size:.82rem;font-weight:600;
+  transition:var(--transition);width:fit-content;
+}
+.promo-card:hover .promo-btn{background:rgba(255,255,255,.2)}
+.promo-card.wide{grid-column:span 2}
+
+/* ═══════════════════════════════════════════
+   TESTIMONIOS
+═══════════════════════════════════════════ */
+#testimonios .test-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;
+}
+.test-card{
+  background:var(--c-card);border:1px solid var(--c-border);
+  border-radius:var(--r-lg);padding:1.8rem;
+  transition:var(--transition);
+  display:flex;flex-direction:column;
+}
+.test-card:hover{border-color:rgba(225,29,72,.3);transform:translateY(-4px)}
+.test-stars{color:var(--c-amber);font-size:1rem;letter-spacing:2px;margin-bottom:1rem}
+.test-quote{
+  font-size:.9rem;color:var(--c-muted);line-height:1.75;
+  flex:1;margin-bottom:1.3rem;
+  font-style:italic;
+}
+.test-author{display:flex;align-items:center;gap:.9rem}
+.test-av{
+  width:44px;height:44px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:.9rem;color:#fff;
+}
+.ta1{background:linear-gradient(135deg,#e11d48,#9f1239)}
+.ta2{background:linear-gradient(135deg,#3b82f6,#1d4ed8)}
+.ta3{background:linear-gradient(135deg,#22c55e,#15803d)}
+.ta4{background:linear-gradient(135deg,#f59e0b,#b45309)}
+.ta5{background:linear-gradient(135deg,#8b5cf6,#6d28d9)}
+.ta6{background:linear-gradient(135deg,#ec4899,#be185d)}
+.test-name{font-size:.9rem;font-weight:700}
+.test-loc{font-size:.75rem;color:var(--c-subtle);margin-top:.1rem}
+.test-verified{font-size:.7rem;color:var(--c-green);font-weight:600;margin-top:.15rem;display:flex;align-items:center;gap:.25rem}
+
+/* ═══════════════════════════════════════════
+   SUCURSALES
+═══════════════════════════════════════════ */
+#sucursales .suc-wrapper{
+  display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;
+}
+.suc-list{display:flex;flex-direction:column;gap:1rem}
+.suc-card{
+  background:var(--c-card);border:1px solid var(--c-border);
+  border-radius:var(--r-lg);padding:1.6rem;
+  transition:var(--transition);cursor:pointer;
+  display:grid;grid-template-columns:auto 1fr auto;gap:1.2rem;align-items:center;
+}
+.suc-card:hover,.suc-card.active{border-color:var(--c-red);box-shadow:0 0 30px rgba(225,29,72,.1)}
+.suc-card.active{background:rgba(225,29,72,.06)}
+.suc-num{
+  width:40px;height:40px;border-radius:10px;
+  background:rgba(225,29,72,.1);border:1px solid rgba(225,29,72,.2);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-weight:800;color:var(--c-red);
+  flex-shrink:0;
+}
+.suc-info h3{font-size:.95rem;font-weight:700;margin-bottom:.2rem}
+.suc-info p{font-size:.8rem;color:var(--c-muted);line-height:1.5}
+.suc-status{
+  font-size:.7rem;font-weight:700;letter-spacing:1px;
+  text-transform:uppercase;padding:.25rem .7rem;border-radius:50px;
+  white-space:nowrap;
+}
+.open{background:rgba(34,197,94,.1);color:var(--c-green);border:1px solid rgba(34,197,94,.2)}
+.main{background:rgba(225,29,72,.1);color:var(--c-red-light);border:1px solid rgba(225,29,72,.2)}
+.suc-map-panel{
+  background:var(--c-card);border:1px solid var(--c-border);
+  border-radius:var(--r-lg);overflow:hidden;position:sticky;top:80px;
+}
+.map-placeholder{
+  height:300px;
+  background:linear-gradient(135deg,#1a1a22,#27272f);
+  display:flex;align-items:center;justify-content:center;
+  font-size:4rem;flex-direction:column;gap:1rem;
+  color:var(--c-subtle);
+}
+.map-placeholder p{font-size:.9rem;font-family:'Outfit',sans-serif}
+.map-details{padding:1.5rem}
+.map-details h3{font-size:1rem;font-weight:700;margin-bottom:.8rem}
+.map-detail-row{
+  display:flex;gap:.8rem;align-items:flex-start;
+  font-size:.85rem;color:var(--c-muted);margin-bottom:.6rem;
+}
+.map-detail-row .di{font-size:1rem;flex-shrink:0;margin-top:.05rem}
+.map-actions{display:flex;gap:.7rem;margin-top:1.2rem}
+.map-btn{
+  flex:1;padding:.65rem;border-radius:10px;
+  font-size:.82rem;font-weight:600;border:none;
+  transition:var(--transition);text-align:center;
+}
+.map-btn-primary{background:var(--c-red);color:#fff}
+.map-btn-primary:hover{background:var(--c-red-dark)}
+.map-btn-ghost{background:var(--c-surface);color:var(--c-muted);border:1px solid var(--c-border)}
+.map-btn-ghost:hover{color:var(--c-white);border-color:var(--c-border2)}
+
+/* ═══════════════════════════════════════════
+   COMPARADOR
+═══════════════════════════════════════════ */
+#comparador{padding:5rem 5vw}
+.comp-table-wrap{
+  background:var(--c-card);border:1px solid var(--c-border);
+  border-radius:var(--r-lg);overflow:hidden;
+}
+.comp-table{width:100%;border-collapse:collapse}
+.comp-table th{
+  background:var(--c-surface);padding:1.2rem 1.5rem;
+  font-size:.82rem;font-weight:700;text-align:left;
+  border-bottom:1px solid var(--c-border);color:var(--c-muted);
+  letter-spacing:.5px;text-transform:uppercase;
+}
+.comp-table th:first-child{color:var(--c-subtle);font-size:.78rem}
+.comp-table td{
+  padding:1rem 1.5rem;font-size:.88rem;
+  border-bottom:1px solid var(--c-border);
+  vertical-align:middle;
+}
+.comp-table tr:last-child td{border-bottom:none}
+.comp-table tr:hover td{background:rgba(255,255,255,.02)}
+.comp-label{color:var(--c-muted);font-size:.82rem}
+.comp-check{color:var(--c-green);font-size:1rem}
+.comp-cross{color:var(--c-subtle);font-size:.9rem}
+.comp-highlight{background:rgba(225,29,72,.04)!important}
+.comp-best{
+  background:var(--c-red);color:#fff;
+  font-size:.65rem;font-weight:700;letter-spacing:1px;
+  padding:.2rem .6rem;border-radius:5px;text-transform:uppercase;
+  margin-left:.5rem;
+}
+
+/* ═══════════════════════════════════════════
+   BLOG
+═══════════════════════════════════════════ */
+#blog .blog-grid{
+  display:grid;
+  grid-template-columns:1.8fr 1fr 1fr;
+  gap:1.5rem;
+}
+.blog-card{
+  background:var(--c-card);border:1px solid var(--c-border);
+  border-radius:var(--r-lg);overflow:hidden;
+  transition:var(--transition);
+}
+.blog-card:hover{transform:translateY(-6px);border-color:var(--c-border2);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.blog-img{
+  width:100%;object-fit:cover;
+  background:linear-gradient(135deg,#1c1c22,#27272a);
+  display:flex;align-items:center;justify-content:center;
+  font-size:3.5rem;
+}
+.blog-img-lg{height:240px}
+.blog-img-sm{height:140px}
+.blog-body{padding:1.4rem}
+.blog-tag{
+  font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--c-red);margin-bottom:.5rem;display:block;
+}
+.blog-title{font-size:.95rem;font-weight:700;line-height:1.4;margin-bottom:.6rem}
+.blog-card.featured .blog-title{font-size:1.15rem}
+.blog-excerpt{font-size:.82rem;color:var(--c-muted);line-height:1.65;margin-bottom:1rem}
+.blog-meta{
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:.75rem;color:var(--c-subtle);
+  padding-top:.8rem;border-top:1px solid var(--c-border);
+}
+.blog-read{color:var(--c-red);font-weight:600;font-size:.78rem}
+
+/* ═══════════════════════════════════════════
+   FAQ
+═══════════════════════════════════════════ */
+#faq{padding:5rem 5vw}
+.faq-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:980px;margin:0 auto;
+}
+.faq-item{
+  background:var(--c-card);border:1px solid var(--c-border);
+  border-radius:var(--r);overflow:hidden;
+}
+.faq-q{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.2rem 1.5rem;cursor:pointer;
+  font-size:.9rem;font-weight:600;gap:1rem;
+  transition:var(--transition);
+}
+.faq-q:hover{color:var(--c-red)}
+.faq-icon{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--c-surface);border:1px solid var(--c-border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.9rem;flex-shrink:0;transition:transform .25s;
+  color:var(--c-muted);
+}
+.faq-item.open .faq-icon{transform:rotate(45deg);background:rgba(225,29,72,.1);border-color:rgba(225,29,72,.3);color:var(--c-red)}
+.faq-a{
+  max-height:0;overflow:hidden;
+  transition:max-height .35s ease,padding .3s ease;
+  font-size:.85rem;color:var(--c-muted);line-height:1.7;
+  padding:0 1.5rem;
+}
+.faq-item.open .faq-a{max-height:200px;padding:0 1.5rem 1.2rem}
+
+/* ═══════════════════════════════════════════
+   NEWSLETTER
+═══════════════════════════════════════════ */
+#newsletter{
+  padding:6rem 5vw;
+  background:linear-gradient(135deg,#0d0004 0%,#1a0009 50%,#0d0004 100%);
+  border-top:1px solid rgba(225,29,72,.15);
+  border-bottom:1px solid rgba(225,29,72,.15);
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+#newsletter::before{
+  content:'';position:absolute;
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(225,29,72,.15),transparent 70%);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+.nl-content{position:relative;z-index:1}
+.nl-icon{font-size:3rem;margin-bottom:1rem}
+.nl-title{
+  font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,3rem);
+  font-weight:800;letter-spacing:-1px;margin-bottom:.8rem;
+}
+.nl-desc{color:var(--c-muted);font-size:1rem;margin-bottom:2.5rem}
+.nl-form{
+  display:flex;gap:.75rem;justify-content:center;
+  max-width:520px;margin:0 auto 1rem;flex-wrap:wrap;
+}
+.nl-input{
+  flex:1;min-width:240px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  color:var(--c-text);padding:.9rem 1.3rem;
+  border-radius:12px;font-size:.9rem;
+  font-family:'Outfit',sans-serif;outline:none;
+  transition:var(--transition);
+}
+.nl-input:focus{border-color:var(--c-red);background:rgba(225,29,72,.06)}
+.nl-btn{
+  background:var(--c-red);color:#fff;border:none;
+  padding:.9rem 2rem;border-radius:12px;
+  font-weight:700;font-size:.9rem;
+  transition:var(--transition);
+  box-shadow:0 0 30px rgba(225,29,72,.3);
+}
+.nl-btn:hover{background:var(--c-red-dark);transform:translateY(-2px)}
+.nl-perks{
+  display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;
+  font-size:.78rem;color:var(--c-subtle);
+}
+.nl-perk::before{content:'✓ ';color:var(--c-green)}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+footer{
+  background:#060608;
+  border-top:1px solid var(--c-border);
+  padding:5rem 5vw 2.5rem;
+}
+.footer-top{
+  display:grid;
+  grid-template-columns:2.2fr 1fr 1fr 1fr 1.8fr;
+  gap:3rem;margin-bottom:4rem;
+}
+.footer-logo{
+  font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;
+  letter-spacing:-1px;color:var(--c-white);display:inline-block;margin-bottom:.9rem;
+}
+.footer-logo em{color:var(--c-red);font-style:normal}
+.footer-tagline{font-size:.85rem;color:var(--c-subtle);line-height:1.7;max-width:300px;margin-bottom:1.5rem}
+.footer-social{display:flex;gap:.6rem}
+.fsoc{
+  width:38px;height:38px;border-radius:10px;
+  background:var(--c-card);border:1px solid var(--c-border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;color:var(--c-muted);
+  transition:var(--transition);
+}
+.fsoc:hover{background:var(--c-red);border-color:var(--c-red);color:#fff;transform:translateY(-3px)}
+.footer-col h4{
+  font-size:.75rem;font-weight:700;letter-spacing:2.5px;
+  text-transform:uppercase;color:var(--c-muted);
+  margin-bottom:1.2rem;
+}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.7rem}
+.footer-col ul li a{
+  font-size:.85rem;color:var(--c-subtle);
+  transition:var(--transition);display:flex;align-items:center;gap:.4rem;
+}
+.footer-col ul li a:hover{color:var(--c-white);padding-left:.4rem}
+.footer-contact-item{
+  display:flex;align-items:flex-start;gap:.8rem;
+  font-size:.85rem;color:var(--c-subtle);margin-bottom:.9rem;
+}
+.fci-icon{font-size:1.1rem;flex-shrink:0;margin-top:.1rem}
+.fci-text strong{color:var(--c-muted);display:block;font-size:.78rem;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.1rem}
+.footer-payment{margin-top:1.5rem}
+.footer-payment p{font-size:.75rem;color:var(--c-subtle);margin-bottom:.6rem;text-transform:uppercase;letter-spacing:1px}
+.payment-icons{display:flex;gap:.5rem;flex-wrap:wrap}
+.pay-icon{
+  background:var(--c-card);border:1px solid var(--c-border);
+  border-radius:6px;padding:.35rem .65rem;
+  font-size:.7rem;font-weight:700;color:var(--c-muted);
+  letter-spacing:.5px;
+}
+.footer-bottom{
+  border-top:1px solid var(--c-border);padding-top:2rem;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+}
+.footer-bottom p{font-size:.8rem;color:var(--c-subtle)}
+.footer-legal{display:flex;gap:1.5rem}
+.footer-legal a{font-size:.8rem;color:var(--c-subtle);transition:color .2s}
+.footer-legal a:hover{color:var(--c-red)}
+
+/* ═══════════════════════════════════════════
+   FLOATING ELEMENTS
+═══════════════════════════════════════════ */
+.wa-btn{
+  position:fixed;bottom:2rem;left:2rem;z-index:999;
+  background:#25D366;color:#fff;
+  display:flex;align-items:center;gap:.6rem;
+  padding:.8rem 1.5rem;border-radius:50px;
+  font-weight:700;font-size:.85rem;
+  box-shadow:0 8px 30px rgba(37,211,102,.35);
+  transition:var(--transition);
+}
+.wa-btn:hover{transform:scale(1.06);box-shadow:0 10px 40px rgba(37,211,102,.5)}
+.wa-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:#fff;animation:pulse 2s infinite;flex-shrink:0;
+}
+#back-top{
+  position:fixed;bottom:2rem;right:2rem;z-index:999;
+  width:48px;height:48px;border-radius:14px;
+  background:var(--c-card);border:1px solid var(--c-border);
+  color:var(--c-muted);font-size:1.1rem;
+  display:none;align-items:center;justify-content:center;
+  transition:var(--transition);
+  box-shadow:0 8px 30px rgba(0,0,0,.4);
+}
+#back-top:hover{background:var(--c-red);border-color:var(--c-red);color:#fff;transform:translateY(-3px)}
+#back-top.show{display:flex}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media(max-width:1100px){
+  #inicio{grid-template-columns:1fr}
+  .hero-visual{display:none}
+  #categorias .cat-mega-grid{grid-template-columns:repeat(4,1fr)}
+  .cat-tile.featured{grid-column:span 1}
+  #servicios .services-mega{grid-template-columns:repeat(2,1fr)}
+  .footer-top{grid-template-columns:1fr 1fr;gap:2rem}
+  #blog .blog-grid{grid-template-columns:1fr 1fr}
+  .blog-card.featured{grid-column:span 2}
+  .flash-inner{grid-template-columns:1fr}
+  .countdown-box{justify-content:flex-start}
+  #sucursales .suc-wrapper{grid-template-columns:1fr}
+  .suc-map-panel{display:none}
+  #testimonios .test-grid{grid-template-columns:1fr 1fr}
+  .promos-grid{grid-template-columns:1fr}
+  .promo-card.wide{grid-column:span 1}
+  .faq-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr 1fr}
+}
+@media(max-width:768px){
+  nav{padding:0 1.2rem}
+  .nav-links,.nav-search{display:none}
+  #categorias .cat-mega-grid{grid-template-columns:repeat(3,1fr)}
+  .prods-grid{grid-template-columns:1fr 1fr}
+  #servicios .services-mega{grid-template-columns:1fr 1fr}
+  .flash-title{font-size:2.5rem}
+  #blog .blog-grid{grid-template-columns:1fr}
+  .blog-card.featured{grid-column:span 1}
+  #testimonios .test-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+  .hero-stats{gap:1.5rem}
+}
+@media(max-width:500px){
+  .prods-grid{grid-template-columns:1fr}
+  #categorias .cat-mega-grid{grid-template-columns:repeat(2,1fr)}
+  .countdown-box{gap:.5rem}
+  .cd-unit{padding:1rem 1.2rem;min-width:72px}
+  .cd-n{font-size:2.2rem}
+  .footer-top{grid-template-columns:1fr}
+  .hero-btns{flex-direction:column}
+  .filter-bar{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR GLOW -->
+<div id="cursor-glow"></div>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announce-bar">
+  <div class="announce-track">
+    <span>🔥 Hasta 30% DESCUENTO en Línea Blanca</span>
+    <span>🚚 Envío GRATIS en compras mayores a $3,000 en Aguascalientes</span>
+    <span>💳 18 Meses Sin Intereses con todas las tarjetas</span>
+    <span>🛠️ Instalación profesional certificada</span>
+    <span>🔥 Hasta 30% DESCUENTO en Línea Blanca</span>
+    <span>🚚 Envío GRATIS en compras mayores a $3,000 en Aguascalientes</span>
+    <span>💳 18 Meses Sin Intereses con todas las tarjetas</span>
+    <span>🛠️ Instalación profesional certificada</span>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="#inicio" class="nav-logo">Electro<em>Ags</em></a>
+  <ul class="nav-links">
+    <li><a href="#categorias">Categorías</a></li>
+    <li><a href="#productos">Productos</a></li>
+    <li><a href="#marcas">Marcas</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#comparador">Comparador</a></li>
+    <li><a href="#sucursales">Sucursales</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <div class="nav-actions">
+    <div class="nav-search">
+      <span>🔍</span>
+      <input type="text" placeholder="Buscar producto...">
+    </div>
+    <button class="nav-icon-btn">❤️<span class="badge">3</span></button>
+    <button class="nav-icon-btn">🛒<span class="badge">2</span></button>
+    <button class="btn-nav-cta">Ver Ofertas →</button>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="inicio">
+  <div class="hero-bg">
+    <div class="hero-bg-orb orb1"></div>
+    <div class="hero-bg-orb orb2"></div>
+    <div class="hero-bg-orb orb3"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-label"><span></span>Nº 1 en Aguascalientes desde 2009</div>
+    <h1 class="hero-h1">
+      Tu hogar
+      <em class="line2">Siempre</em>
+      <span class="line3">en perfecto estado.</span>
+    </h1>
+    <p class="hero-desc">Los mejores electrodomésticos de las marcas líderes mundiales, con envío a domicilio, instalación profesional y financiamiento sin intereses en toda la zona metropolitana de Aguascalientes.</p>
+    <div class="hero-actions">
+      <a href="#productos" class="btn-hero btn-hero-primary">🛍 Ver Catálogo Completo</a>
+      <a href="#sucursales" class="btn-hero btn-hero-ghost">📍 Nuestras Tiendas</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><span class="hstat-n">+8,500</span><span class="hstat-l">Clientes felices</span></div>
+      <div class="hstat"><span class="hstat-n">+600</span><span class="hstat-l">Productos en stock</span></div>
+      <div class="hstat"><span class="hstat-n">4</span><span class="hstat-l">Sucursales AGS</span></div>
+      <div class="hstat"><span class="hstat-n">15+</span><span class="hstat-l">Años de experiencia</span></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div style="position:relative">
+      <span class="hero-badge-float">⚡ Hasta 30% OFF HOY</span>
+      <div class="hero-main-img">
+        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=700&q=80" alt="Electrodomésticos premium">
+      </div>
+      <div class="hero-cards-row">
+        <div class="hero-mini-card"><span class="hmc-icon">🚚</span><div><div class="hmc-label">Entrega</div><div class="hmc-val">Mismo día</div></div></div>
+        <div class="hero-mini-card"><span class="hmc-icon">💳</span><div><div class="hmc-label">Financiamiento</div><div class="hmc-val">18 MSI</div></div></div>
+        <div class="hero-mini-card"><span class="hmc-icon">🛡️</span><div><div class="hmc-label">Garantía</div><div class="hmc-val">Hasta 5 años</div></div></div>
+        <div class="hero-mini-card"><span class="hmc-icon">🔧</span><div><div class="hmc-label">Instalación</div><div class="hmc-val">Incluida</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item"><span class="ti-icon">✅</span><span><strong>Garantía oficial</strong> de todas las marcas</span></div>
+  <div class="trust-item"><span class="ti-icon">🚚</span><span><strong>Entrega e instalación</strong> el mismo día</span></div>
+  <div class="trust-item"><span class="ti-icon">💳</span><span><strong>18 MSI</strong> con todas las tarjetas</span></div>
+  <div class="trust-item"><span class="ti-icon">🔄</span><span><strong>30 días</strong> para devoluciones</span></div>
+  <div class="trust-item"><span class="ti-icon">🏆</span><span><strong>+8,500</strong> clientes satisfechos</span></div>
+  <div class="trust-item"><span class="ti-icon">📞</span><span>Atención <strong>7 días a la semana</strong></span></div>
+</div>
+
+<!-- ═══ CATEGORÍAS ═══ -->
+<section id="categorias" class="section section-alt">
+  <div class="sec-header-row">
+    <div>
+      <span class="sec-label">Explora nuestro catálogo</span>
+      <h2 class="sec-title">Categorías <em>Principales</em></h2>
+      <p class="sec-desc">Todo lo que tu hogar necesita en un solo lugar. Más de 600 productos disponibles.</p>
+    </div>
+    <a href="#productos" class="btn-link">Ver todos →</a>
+  </div>
+  <div class="cat-mega-grid">
+    <a href="#lavadoras" class="cat-tile featured">
+      <span class="cat-icon">🫧</span>
+      <div class="cat-name">Lavadoras</div>
+      <div class="cat-count">42 productos</div>
+    </a>
+    <a href="#refrigeradores" class="cat-tile">
+      <span class="cat-icon">🧊</span>
+      <div class="cat-name">Refrigeradores</div>
+      <div class="cat-count">38 productos</div>
+    </a>
+    <a href="#estufas" class="cat-tile">
+      <span class="cat-icon">🔥</span>
+      <div class="cat-name">Estufas</div>
+      <div class="cat-count">31 productos</div>
+    </a>
+    <a href="#hornos" class="cat-tile">
+      <span class="cat-icon">🍞</span>
+      <div class="cat-name">Hornos & Microondas</div>
+      <div class="cat-count">28 productos</div>
+    </a>
+    <a href="#aires" class="cat-tile">
+      <span class="cat-icon">❄️</span>
+      <div class="cat-name">Aires AC</div>
+      <div class="cat-count">26 productos</div>
+    </a>
+    <a href="#secadoras" class="cat-tile">
+      <span class="cat-icon">💨</span>
+      <div class="cat-name">Secadoras</div>
+      <div class="cat-count">19 productos</div>
+    </a>
+    <a href="#lavavajillas" class="cat-tile">
+      <span class="cat-icon">🍽️</span>
+      <div class="cat-name">Lavavajillas</div>
+      <div class="cat-count">16 productos</div>
+    </a>
+    <a href="#tv" class="cat-tile featured">
+      <span class="cat-icon">📺</span>
+      <div class="cat-name">Televisores</div>
+      <div class="cat-count">55 productos</div>
+    </a>
+    <a href="#aspiradoras" class="cat-tile">
+      <span class="cat-icon">🌀</span>
+      <div class="cat-name">Aspiradoras</div>
+      <div class="cat-count">22 productos</div>
+    </a>
+    <a href="#calentadores" class="cat-tile">
+      <span class="cat-icon">🚿</span>
+      <div class="cat-name">Calentadores</div>
+      <div class="cat-count">18 productos</div>
+    </a>
+    <a href="#cafeteras" class="cat-tile">
+      <span class="cat-icon">☕</span>
+      <div class="cat-name">Cafeteras</div>
+      <div class="cat-count">24 productos</div>
+    </a>
+    <a href="#licuadoras" class="cat-tile">
+      <span class="cat-icon">🥤</span>
+      <div class="cat-name">Licuadoras</div>
+      <div class="cat-count">20 productos</div>
+    </a>
+    <a href="#smarthome" class="cat-tile">
+      <span class="cat-icon">🏠</span>
+      <div class="cat-name">Smart Home</div>
+      <div class="cat-count">35 productos</div>
+    </a>
+    <a href="#audio" class="cat-tile">
+      <span class="cat-icon">🔊</span>
+      <div class="cat-name">Audio & Sonido</div>
+      <div class="cat-count">29 productos</div>
+    </a>
+    <a href="#pequenos" class="cat-tile">
+      <span class="cat-icon">🧇</span>
+      <div class="cat-name">Pequeños Aparatos</div>
+      <div class="cat-count">80+ productos</div>
+    </a>
+  </div>
+</section>
+
+<!-- ═══ PROMOS ═══ -->
+<section id="promos">
+  <div class="promos-grid">
+    <div class="promo-card pc1">
+      <div class="promo-bg-emoji">❄️</div>
+      <div class="promo-tag">Temporada calor</div>
+      <div class="promo-title">Mini Split desde $8,990</div>
+      <div class="promo-sub">Instalación incluida en Aguascalientes</div>
+      <a href="#aires" class="promo-btn">Ver aires AC →</a>
+    </div>
+    <div class="promo-card pc2">
+      <div class="promo-bg-emoji">🧊</div>
+      <div class="promo-tag">Más vendido</div>
+      <div class="promo-title">French Door LG a 18 MSI</div>
+      <div class="promo-sub">Retiro de tu viejo refrigerador sin costo</div>
+      <a href="#refrigeradores" class="promo-btn">Ver refrigeradores →</a>
+    </div>
+    <div class="promo-card pc3 wide">
+      <div class="promo-bg-emoji">🫧</div>
+      <div class="promo-tag">Oferta de la semana</div>
+      <div class="promo-title">Lavadora + Secadora Samsung: Paga 1, Lleva 2</div>
+      <div class="promo-sub">Combo exclusivo para Aguascalientes. Mientras duren existencias.</div>
+      <a href="#lavadoras" class="promo-btn">Ver combo →</a>
+    </div>
+    <div class="promo-card pc4">
+      <div class="promo-bg-emoji">📺</div>
+      <div class="promo-tag">Smart Home</div>
+      <div class="promo-title">TV OLED 65" desde $39,999</div>
+      <div class="promo-sub">Sony, LG y Samsung. Mejor precio garantizado.</div>
+      <a href="#tv" class="promo-btn">Ver televisores →</a>
+    </div>
+    <div class="promo-card" style="background:linear-gradient(135deg,#1a1205,#2e220a)">
+      <div class="promo-bg-emoji">☕</div>
+      <div class="promo-tag">Nuevo</div>
+      <div class="promo-title">Cafeteras De'Longhi hasta 20% OFF</div>
+      <div class="promo-sub">Expreso, americanas y superautomáticas.</div>
+      <a href="#cafeteras" class="promo-btn">Ver cafeteras →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRODUCTOS ═══ -->
+<section id="productos" class="section section-alt">
+  <div class="sec-header-row">
+    <div>
+      <span class="sec-label">Catálogo</span>
+      <h2 class="sec-title">Productos <em>Destacados</em></h2>
+      <p class="sec-desc">Selección curada de los mejores productos con los mejores precios de Aguascalientes.</p>
+    </div>
+    <a href="#" class="btn-link">Catálogo completo →</a>
+  </div>
+  <div class="filter-bar">
+    <button class="filter-btn on">Todos</button>
+    <button class="filter-btn">⚡ Más Vendidos</button>
+    <button class="filter-btn">🔥 En Oferta</button>
+    <button class="filter-btn">🆕 Nuevos</button>
+    <button class="filter-btn">🏠 Smart Home</button>
+    <button class="filter-btn">❄️ Clima</button>
+    <button class="filter-btn">📺 Entretenimiento</button>
+    <div class="sort-bar">
+      <select class="sort-select">
+        <option>Ordenar: Relevancia</option>
+        <option>Precio: menor a mayor</option>
+        <option>Precio: mayor a menor</option>
+        <option>Más vendidos</option>
+      </select>
+    </div>
+  </div>
+  <div class="prods-grid">
+
+    <!-- Lavadora -->
+    <div id="lavadoras" class="prod-card">
+      <div class="prod-img-wrap">
+        <img src="https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=500&q=80" alt="Lavadora Samsung">
+        <span class="prod-ribbon ribbon-sale">-19%</span>
+        <button class="prod-fav">♡</button>
+      </div>
+      <div class="prod-body">
+        <div class="prod-brand">Samsung</div>
+        <div class="prod-name">Lavadora Carga Frontal 15 kg WF15T EcoBubble</div>
+        <div class="prod-specs">
+          <span class="spec-chip">15 kg</span><span class="spec-chip">EcoBubble</span><span class="spec-chip">Inverter A+++</span>
+        </div>
+        <div class="prod-rating">★★★★★<span>(147 reseñas)</span></div>
+        <div class="prod-footer">
+          <div class="prod-pricing">
+            <div class="prod-old">$12,999</div>
+            <div class="prod-price">$10,499</div>
+            <div class="prod-msi">✓ 18 MSI disponibles</div>
+          </div>
+          <button class="prod-cta">🛒 Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Refrigerador -->
+    <div id="refrigeradores" class="prod-card">
+      <div class="prod-img-wrap">
+        <img src="https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=500&q=80" alt="Refrigerador LG">
+        <span class="prod-ribbon ribbon-top">⭐ Top</span>
+        <button class="prod-fav">♡</button>
+      </div>
+      <div class="prod-body">
+        <div class="prod-brand">LG</div>
+        <div class="prod-name">Refrigerador French Door 28 pies InstaView</div>
+        <div class="prod-specs">
+          <span class="spec-chip">28 pies³</span><span class="spec-chip">InstaView</span><span class="spec-chip">Craft Ice</span>
+        </div>
+        <div class="prod-rating">★★★★★<span>(203 reseñas)</span></div>
+        <div class="prod-footer">
+          <div class="prod-pricing">
+            <div class="prod-old">$34,999</div>
+            <div class="prod-price">$28,999</div>
+            <div class="prod-msi">✓ 18 MSI disponibles</div>
+          </div>
+          <button class="prod-cta">🛒 Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Estufa -->
+    <div id="estufas" class="prod-card">
+      <div class="prod-img-wrap">
+        <div class="prod-img-emoji">🔥</div>
+        <span class="prod-ribbon ribbon-new">Nuevo</span>
+        <button class="prod-fav">♡</button>
+      </div>
+      <div class="prod-body">
+        <div class="prod-brand">Mabe</div>
+        <div class="prod-name">Estufa de Gas 30" 5 Quemadores Parrilla Continua</div>
+        <div class="prod-specs">
+          <span class="spec-chip">5 quemadores</span><span class="spec-chip">Convección</span><span class="spec-chip">Encendido elect.</span>
+        </div>
+        <div class="prod-rating">★★★★☆<span>(89 reseñas)</span></div>
+        <div class="prod-footer">
+          <div class="prod-pricing">
+            <div class="prod-price">$8,299</div>
+            <div class="prod-msi">✓ 12 MSI disponibles</div>
+          </div>
+          <button class="prod-cta">🛒 Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Aire -->
+    <div id="aires" class="prod-card">
+      <div class="prod-img-wrap">
+        <img src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=500&q=80" alt="Aire Acondicionado">
+        <span class="prod-ribbon ribbon-hot">🔥 Hot</span>
+        <button class="prod-fav">♡</button>
+      </div>
+      <div class="prod-body">
+        <div class="prod-brand">Carrier</div>
+        <div class="prod-name">Mini Split Inverter 18,000 BTU WiFi SEER 20</div>
+        <div class="prod-specs">
+          <span class="spec-chip">18,000 BTU</span><span class="spec-chip">WiFi</span><span class="spec-chip">HEPA</span>
+        </div>
+        <div class="prod-rating">★★★★★<span>(312 reseñas)</span></div>
+        <div class="prod-footer">
+          <div class="prod-pricing">
+            <div class="prod-old">$15,999</div>
+            <div class="prod-price">$12,799</div>
+            <div class="prod-msi">✓ 18 MSI disponibles</div>
+          </div>
+          <button class="prod-cta">🛒 Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TV -->
+    <div id="tv" class="prod-card">
+      <div class="prod-img-wrap">
+        <img src="https://images.unsplash.com/photo-1593784991095-a205069470b6?w=500&q=80" alt="TV Sony OLED">
+        <span class="prod-ribbon ribbon-top">⭐ Top</span>
+        <button class="prod-fav">♡</button>
+      </div>
+      <div class="prod-body">
+        <div class="prod-brand">Sony</div>
+        <div class="prod-name">OLED Bravia XR 65" 4K Google TV</div>
+        <div class="prod-specs">
+          <span class="spec-chip">65"</span><span class="spec-chip">OLED 4K</span><span class="spec-chip">Dolby Vision</span>
+        </div>
+        <div class="prod-rating">★★★★★<span>(178 reseñas)</span></div>
+        <div class="prod-footer">
+          <div class="prod-pricing">
+            <div class="prod-old">$49,999</div>
+            <div class="prod-price">$41,999</div>
+            <div class="prod-msi">✓ 18 MSI disponibles</div>
+          </div>
+          <button class="prod-cta">🛒 Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Secadora -->
+    <div id="secadoras" class="prod-card">
+      <div class="prod-img-wrap">
+        <div class="prod-img-emoji">💨</div>
+        <span class="prod-ribbon ribbon-new">Nuevo</span>
+        <button class="prod-fav">♡</button>
+      </div>
+      <div class="prod-body">
+        <div class="prod-brand">Bosch</div>
+        <div class="prod-name">Secadora Gas 9 kg Serie 6 Home Connect</div>
+        <div class="prod-specs">
+          <span class="spec-chip">9 kg</span><span class="spec-chip">Gas</span><span class="spec-chip">App Control</span>
+        </div>
+        <div class="prod-rating">★★★★★<span>(64 reseñas)</span></div>
+        <div class="prod-footer">
+          <div class="prod-pricing">
+            <div class="prod-price">$13,499</div>
+            <div class="prod-msi">✓ 18 MSI disponibles</div>
+          </div>
+          <button class="prod-cta">🛒 Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lavavajillas -->
+    <div id="lavavajillas" class="prod-card">
+      <div class="prod-img-wrap">
+        <div class="prod-img-emoji">🍽️</div>
+        <button class="prod-fav">♡</button>
+      </div>
+      <div class="prod-body">
+        <div class="prod-brand">Miele</div>
+        <div class="prod-name">Lavavajillas Empotrado 60cm G7110 AutoDos</div>
+        <div class="prod-specs">
+          <span class="spec-chip">14 cubiertos</span><span class="spec-chip">AutoDos</span><span class="spec-chip">A+++</span>
+        </div>
+        <div class="prod-rating">★★★★★<span>(41 reseñas)</span></div>
+        <div class="prod-footer">
+          <div class="prod-pricing">
+            <div class="prod-price">$22,990</div>
+            <div class="prod-msi">✓ 18 MSI disponibles</div>
+          </div>
+          <button class="prod-cta">🛒 Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Aspiradora Robot -->
+    <div id="aspiradoras" class="prod-card">
+      <div class="prod-img-wrap">
+        <div class="prod-img-emoji">🌀</div>
+        <span class="prod-ribbon ribbon-new">Nuevo</span>
+        <button class="prod-fav">♡</button>
+      </div>
+      <div class="prod-body">
+        <div class="prod-brand">Dyson</div>
+        <div class="prod-name">Aspiradora Robot 360 Heurist Mapeo Inteligente</div>
+        <div class="prod-specs">
+          <span class="spec-chip">360° Succión</span><span class="spec-chip">75 min</span><span class="spec-chip">WiFi</span>
+        </div>
+        <div class="prod-rating">★★★★☆<span>(93 reseñas)</span></div>
+        <div class="prod-footer">
+          <div class="prod-pricing">
+            <div class="prod-price">$18,990</div>
+            <div class="prod-msi">✓ 18 MSI disponibles</div>
+          </div>
+          <button class="prod-cta">🛒 Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Microondas -->
+    <div id="hornos" class="prod-card">
+      <div class="prod-img-wrap">
+        <div class="prod-img-emoji">🍞</div>
+        <span class="prod-ribbon ribbon-sale">-20%</span>
+        <button class="prod-fav">♡</button>
+      </div>
+      <div class="prod-body">
+        <div class="prod-brand">Whirlpool</div>
+        <div class="prod-name">Microondas Grill + Convección 30L Sensor Auto</div>
+        <div class="prod-specs">
+          <span class="spec-chip">30L</span><span class="spec-chip">900W</span><span class="spec-chip">Grill + Conv.</span>
+        </div>
+        <div class="prod-rating">★★★★☆<span>(118 reseñas)</span></div>
+        <div class="prod-footer">
+          <div class="prod-pricing">
+            <div class="prod-old">$5,999</div>
+            <div class="prod-price">$4,799</div>
+            <div class="prod-msi">✓ 12 MSI disponibles</div>
+          </div>
+          <button class="prod-cta">🛒 Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cafetera -->
+    <div id="cafeteras" class="prod-card">
+      <div class="prod-img-wrap">
+        <div class="prod-img-emoji">☕</div>
+        <span class="prod-ribbon ribbon-hot">🔥 Hot</span>
+        <button class="prod-fav">♡</button>
+      </div>
+      <div class="prod-body">
+        <div class="prod-brand">De'Longhi</div>
+        <div class="prod-name">Cafetera Superautomática Magnifica Evo ECAM</div>
+        <div class="prod-specs">
+          <span class="spec-chip">Molinillo int.</span><span class="spec-chip">13 niveles</span><span class="spec-chip">Espumador</span>
+        </div>
+        <div class="prod-rating">★★★★★<span>(229 reseñas)</span></div>
+        <div class="prod-footer">
+          <div class="prod-pricing">
+            <div class="prod-price">$16,490</div>
+            <div class="prod-msi">✓ 18 MSI disponibles</div>
+          </div>
+          <button class="prod-cta">🛒 Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Calentador -->
+    <div id="calentadores" class="prod-card">
+      <div class="prod-img-wrap">
+        <div class="prod-img-emoji">🚿</div>
+        <button class="prod-fav">♡</button>
+      </div>
+      <div class="prod-body">
+        <div class="prod-brand">Calorex</div>
+        <div class="prod-name">Calentador Paso Gas LP 14L Control Digital</div>
+        <div class="prod-specs">
+          <span class="spec-chip">14 L/min</span><span class="spec-chip">Digital</span><span class="spec-chip">Gas LP</span>
+        </div>
+        <div class="prod-rating">★★★★☆<span>(77 reseñas)</span></div>
+        <div class="prod-footer">
+          <div class="prod-pricing">
+            <div class="prod-price">$4,299</div>
+            <div class="prod-msi">✓ 12 MSI disponibles</div>
+          </div>
+          <button class="prod-cta">🛒 Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- KitchenAid -->
+    <div id="pequenos" class="prod-card">
+      <div class="prod-img-wrap">
+        <div class="prod-img-emoji">🧇</div>
+        <span class="prod-ribbon ribbon-top">⭐ Top</span>
+        <button class="prod-fav">♡</button>
+      </div>
+      <div class="prod-body">
+        <div class="prod-brand">KitchenAid</div>
+        <div class="prod-name">Batidora de Pedestal Artisan 4.8L 325W</div>
+        <div class="prod-specs">
+          <span class="spec-chip">4.8L</span><span class="spec-chip">325W</span><span class="spec-chip">10 veloc.</span>
+        </div>
+        <div class="prod-rating">★★★★★<span>(341 reseñas)</span></div>
+        <div class="prod-footer">
+          <div class="prod-pricing">
+            <div class="prod-old">$11,999</div>
+            <div class="prod-price">$9,490</div>
+            <div class="prod-msi">✓ 18 MSI disponibles</div>
+          </div>
+          <button class="prod-cta">🛒 Comprar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ MARCAS MARQUEE ═══ -->
+<div id="marcas">
+  <div class="brands-track">
+    <div class="brand-item">Samsung</div>
+    <div class="brand-item">LG</div>
+    <div class="brand-item">Bosch</div>
+    <div class="brand-item">Whirlpool</div>
+    <div class="brand-item">Mabe</div>
+    <div class="brand-item">Miele</div>
+    <div class="brand-item">Sony</div>
+    <div class="brand-item">Carrier</div>
+    <div class="brand-item">Dyson</div>
+    <div class="brand-item">De'Longhi</div>
+    <div class="brand-item">KitchenAid</div>
+    <div class="brand-item">Calorex</div>
+    <div class="brand-item">Electrolux</div>
+    <div class="brand-item">Panasonic</div>
+    <div class="brand-item">Daewoo</div>
+    <div class="brand-item">Vitamix</div>
+    <!-- duplicado para loop -->
+    <div class="brand-item">Samsung</div>
+    <div class="brand-item">LG</div>
+    <div class="brand-item">Bosch</div>
+    <div class="brand-item">Whirlpool</div>
+    <div class="brand-item">Mabe</div>
+    <div class="brand-item">Miele</div>
+    <div class="brand-item">Sony</div>
+    <div class="brand-item">Carrier</div>
+    <div class="brand-item">Dyson</div>
+    <div class="brand-item">De'Longhi</div>
+    <div class="brand-item">KitchenAid</div>
+    <div class="brand-item">Calorex</div>
+    <div class="brand-item">Electrolux</div>
+    <div class="brand-item">Panasonic</div>
+    <div class="brand-item">Daewoo</div>
+    <div class="brand-item">Vitamix</div>
+  </div>
+</div>
+
+<!-- ═══ FLASH SALE ═══ -->
+<div id="flash-sale">
+  <div class="flash-inner">
+    <div class="flash-content">
+      <div class="flash-tag">⚡ Oferta Relámpago</div>
+      <div class="flash-title">Hasta <span>30%</span> Descuento<br>en Línea Blanca</div>
+      <p class="flash-desc">Solo por tiempo limitado. Entrega e instalación gratuita en toda la zona metropolitana de Aguascalientes. No dejes pasar esta oportunidad.</p>
+      <button class="flash-cta" onclick="document.getElementById('productos').scrollIntoView({behavior:'smooth'})">Ver todas las ofertas →</button>
+    </div>
+    <div class="countdown-box">
+      <div class="cd-unit"><span class="cd-n" id="cd-d">02</span><div class="cd-l">Días</div></div>
+      <div class="cd-unit"><span class="cd-n" id="cd-h">14</span><div class="cd-l">Horas</div></div>
+      <div class="cd-unit"><span class="cd-n" id="cd-m">37</span><div class="cd-l">Min</div></div>
+      <div class="cd-unit"><span class="cd-n" id="cd-s">00</span><div class="cd-l">Seg</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SERVICIOS ═══ -->
+<section id="servicios" class="section section-alt">
+  <div class="sec-header">
+    <span class="sec-label">Más que una tienda</span>
+    <h2 class="sec-title">Nuestros <em>Servicios</em></h2>
+    <p class="sec-desc">Una experiencia completa antes, durante y después de tu compra. Porque queremos que vuelvas.</p>
+  </div>
+  <div class="services-mega">
+    <div class="svc-card">
+      <div class="svc-icon-wrap">🚚</div>
+      <div class="svc-title">Envío a Domicilio</div>
+      <div class="svc-desc">Entrega gratuita en toda la zona metropolitana de Aguascalientes en compras mayores a $3,000 MXN.</div>
+      <a href="#" class="svc-link">Ver detalles →</a>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon-wrap">🔧</div>
+      <div class="svc-title">Instalación Profesional</div>
+      <div class="svc-desc">Técnicos certificados por las marcas. Instalación de aires acondicionados, lavadoras y más el mismo día.</div>
+      <a href="#" class="svc-link">Ver detalles →</a>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon-wrap">🛡️</div>
+      <div class="svc-title">Garantía Extendida</div>
+      <div class="svc-desc">Hasta 5 años de garantía adicional en línea blanca y clima. Cobertura total de partes y mano de obra.</div>
+      <a href="#" class="svc-link">Ver detalles →</a>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon-wrap">💳</div>
+      <div class="svc-title">18 MSI</div>
+      <div class="svc-desc">Financiamiento sin intereses con todas las tarjetas de crédito participantes. También BBVA y nómina.</div>
+      <a href="#" class="svc-link">Ver detalles →</a>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon-wrap">♻️</div>
+      <div class="svc-title">Retiro de Aparato Viejo</div>
+      <div class="svc-desc">Retiramos tu electrodoméstico usado sin costo al momento de la entrega del nuevo equipo.</div>
+      <a href="#" class="svc-link">Ver detalles →</a>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon-wrap">🛠️</div>
+      <div class="svc-title">Centro de Servicio</div>
+      <div class="svc-desc">Taller propio autorizado por las principales marcas. Refacciones originales en stock permanente.</div>
+      <a href="#" class="svc-link">Ver detalles →</a>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon-wrap">📦</div>
+      <div class="svc-title">Click & Collect</div>
+      <div class="svc-desc">Compra en línea y recoge en tienda el mismo día. Tu pedido listo en menos de 2 horas.</div>
+      <a href="#" class="svc-link">Ver detalles →</a>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon-wrap">🤝</div>
+      <div class="svc-title">Asesoría Personalizada</div>
+      <div class="svc-desc">Te ayudamos a elegir el aparato ideal según tus necesidades, espacio y presupuesto. Sin compromiso.</div>
+      <a href="#" class="svc-link">Ver detalles →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COMPARADOR ═══ -->
+<section id="comparador" class="section">
+  <div class="sec-header">
+    <span class="sec-label">Herramienta útil</span>
+    <h2 class="sec-title">Comparador de <em>Modelos</em></h2>
+    <p class="sec-desc">¿No sabes cuál elegir? Compara las características principales de nuestros modelos más populares de lavadoras.</p>
+  </div>
+  <div class="comp-table-wrap">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Característica</th>
+          <th>Samsung WF15T <span class="comp-best">Recomendado</span></th>
+          <th>LG F4WV509S2</th>
+          <th>Bosch WAX32MH0</th>
+          <th>Whirlpool WFW6620HC</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="comp-label">Capacidad</td><td class="comp-highlight">15 kg</td><td>9 kg</td><td>10 kg</td><td>12 kg</td></tr>
+        <tr><td class="comp-label">Tipo</td><td class="comp-highlight">Frontal</td><td>Frontal</td><td>Frontal</td><td>Frontal</td></tr>
+        <tr><td class="comp-label">Eficiencia</td><td class="comp-highlight">A+++</td><td>A+++</td><td>A+++</td><td>A++</td></tr>
+        <tr><td class="comp-label">Tecnología inverter</td><td class="comp-highlight comp-check">✓</td><td class="comp-check">✓</td><td class="comp-check">✓</td><td class="comp-cross">—</td></tr>
+        <tr><td class="comp-label">Control por app</td><td class="comp-highlight comp-check">✓</td><td class="comp-check">✓</td><td class="comp-check">✓</td><td class="comp-cross">—</td></tr>
+        <tr><td class="comp-label">Vapor</td><td class="comp-highlight comp-check">✓</td><td class="comp-check">✓</td><td class="comp-cross">—</td><td class="comp-cross">—</td></tr>
+        <tr><td class="comp-label">Ciclos</td><td class="comp-highlight">15 ciclos</td><td>12 ciclos</td><td>14 ciclos</td><td>10 ciclos</td></tr>
+        <tr><td class="comp-label">Garantía</td><td class="comp-highlight">3 años</td><td>2 años</td><td>2 años</td><td>1 año</td></tr>
+        <tr>
+          <td class="comp-label">Precio</td>
+          <td class="comp-highlight"><strong style="color:#FAFAFA;font-size:1rem">$10,499</strong></td>
+          <td><strong>$9,299</strong></td>
+          <td><strong>$11,990</strong></td>
+          <td><strong>$8,799</strong></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="comp-highlight"><button class="prod-cta" style="width:100%;justify-content:center">🛒 Comprar</button></td>
+          <td><button class="prod-cta" style="width:100%;justify-content:center;background:var(--c-surface);color:var(--c-muted);border:1px solid var(--c-border)">Ver producto</button></td>
+          <td><button class="prod-cta" style="width:100%;justify-content:center;background:var(--c-surface);color:var(--c-muted);border:1px solid var(--c-border)">Ver producto</button></td>
+          <td><button class="prod-cta" style="width:100%;justify-content:center;background:var(--c-surface);color:var(--c-muted);border:1px solid var(--c-border)">Ver producto</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIOS ═══ -->
+<section id="testimonios" class="section section-alt">
+  <div class="sec-header">
+    <span class="sec-label">Lo que dicen nuestros clientes</span>
+    <h2 class="sec-title">+8,500 Familias <em>Confían en Nosotros</em></h2>
+    <p class="sec-desc">Clientes reales de Aguascalientes que ya disfrutan sus electrodomésticos.</p>
+  </div>
+  <div class="test-grid">
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <p class="test-quote">"Compré mi refrigerador LG French Door aquí y el servicio fue excepcional. Me entregaron e instalaron el mismo día sin costo extra. El equipo es exactamente lo que necesitaba."</p>
+      <div class="test-author">
+        <div class="test-av ta1">MR</div>
+        <div>
+          <div class="test-name">María Rodríguez</div>
+          <div class="test-loc">Fracc. Del Bosque, Ags.</div>
+          <div class="test-verified">✓ Compra verificada</div>
+        </div>
+      </div>
+    </div>
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <p class="test-quote">"18 meses sin intereses de verdad. Traje mi tarjeta y el proceso fue en 10 minutos. Me llevé lavadora y secadora Samsung sin problema. El asesor fue muy amable."</p>
+      <div class="test-author">
+        <div class="test-av ta2">JL</div>
+        <div>
+          <div class="test-name">Jorge López</div>
+          <div class="test-loc">Col. Insurgentes, Ags.</div>
+          <div class="test-verified">✓ Compra verificada</div>
+        </div>
+      </div>
+    </div>
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <p class="test-quote">"Llevé mi mini split al servicio y quedó como nuevo. Los técnicos son muy profesionales y los precios son justos. Sin duda el mejor centro de servicio de Aguascalientes."</p>
+      <div class="test-author">
+        <div class="test-av ta3">AC</div>
+        <div>
+          <div class="test-name">Ana Cervantes</div>
+          <div class="test-loc">Jardines de la Asunción, Ags.</div>
+          <div class="test-verified">✓ Compra verificada</div>
+        </div>
+      </div>
+    </div>
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <p class="test-quote">"La TV Sony OLED que compré superó mis expectativas. Me dieron el mejor precio de toda la ciudad. La instalación fue rápida y el técnico explicó todas las funciones."</p>
+      <div class="test-author">
+        <div class="test-av ta4">FG</div>
+        <div>
+          <div class="test-name">Felipe González</div>
+          <div class="test-loc">Villas del Sol, Ags.</div>
+          <div class="test-verified">✓ Compra verificada</div>
+        </div>
+      </div>
+    </div>
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <p class="test-quote">"Retiraron mi estufa vieja e instalaron la nueva en menos de una hora. El servicio es impecable y los precios muy competitivos. Ya recomendé ElectroAgs a toda mi familia."</p>
+      <div class="test-author">
+        <div class="test-av ta5">LP</div>
+        <div>
+          <div class="test-name">Laura Pérez</div>
+          <div class="test-loc">Bulevar Champions, Ags.</div>
+          <div class="test-verified">✓ Compra verificada</div>
+        </div>
+      </div>
+    </div>
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <p class="test-quote">"Me asesoraron perfectamente para elegir el calentador ideal para mi casa. El asesor conoce muy bien los productos y no intenta vender lo más caro sino lo más conveniente."</p>
+      <div class="test-author">
+        <div class="test-av ta6">RT</div>
+        <div>
+          <div class="test-name">Roberto Torres</div>
+          <div class="test-loc">Lomas del Sur, Ags.</div>
+          <div class="test-verified">✓ Compra verificada</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SUCURSALES ═══ -->
+<section id="sucursales" class="section">
+  <div class="sec-header">
+    <span class="sec-label">Estamos cerca de ti</span>
+    <h2 class="sec-title">4 Sucursales en <em>Aguascalientes</em></h2>
+    <p class="sec-desc">Siempre habrá una ElectroAgs cerca de donde vives.</p>
+  </div>
+  <div class="suc-wrapper">
+    <div class="suc-list">
+      <div class="suc-card active" onclick="selectSuc(this,'Centro','Av. Adolfo López Mateos 1245, Col. Primo Verdad','(449) 912-3456','Lun–Sáb 9:00–20:00, Dom 10:00–18:00')">
+        <div class="suc-num">01</div>
+        <div class="suc-info">
+          <h3>ElectroAgs Centro</h3>
+          <p>Av. Adolfo López Mateos 1245 · Col. Primo Verdad</p>
+          <p>☎ (449) 912-3456</p>
+        </div>
+        <span class="suc-status main">Casa Matriz</span>
+      </div>
+      <div class="suc-card" onclick="selectSuc(this,'Sendero Norte','Blvd. a Zacatecas 3800, Plaza Sendero','(449) 978-6543','Lun–Dom 10:00–21:00')">
+        <div class="suc-num">02</div>
+        <div class="suc-info">
+          <h3>ElectroAgs Sendero Norte</h3>
+          <p>Blvd. a Zacatecas 3800 · Plaza Sendero Norte</p>
+          <p>☎ (449) 978-6543</p>
+        </div>
+        <span class="suc-status open">Abierto ahora</span>
+      </div>
+      <div class="suc-card" onclick="selectSuc(this,'Sur / Ojocaliente','Carr. Ags–Calvillo Km 3, Ojocaliente','(449) 965-1122','Lun–Sáb 9:00–20:00, Dom 10:00–17:00')">
+        <div class="suc-num">03</div>
+        <div class="suc-info">
+          <h3>ElectroAgs Sur</h3>
+          <p>Carr. Aguascalientes–Calvillo Km 3 · Ojocaliente</p>
+          <p>☎ (449) 965-1122</p>
+        </div>
+        <span class="suc-status open">Abierto ahora</span>
+      </div>
+      <div class="suc-card" onclick="selectSuc(this,'Premium · Town Center','Paseo de los Insurgentes 1010, Piso 1','(449) 934-7890','Lun–Dom 11:00–21:00')">
+        <div class="suc-num">04</div>
+        <div class="suc-info">
+          <h3>ElectroAgs Premium</h3>
+          <p>Paseo de los Insurgentes 1010 · Town Center Piso 1</p>
+          <p>☎ (449) 934-7890</p>
+        </div>
+        <span class="suc-status open">Showroom</span>
+      </div>
+    </div>
+    <div class="suc-map-panel">
+      <div class="map-placeholder">
+        <span>🗺️</span>
+        <p id="map-name">ElectroAgs Centro</p>
+      </div>
+      <div class="map-details">
+        <h3 id="map-title">ElectroAgs Centro — Casa Matriz</h3>
+        <div class="map-detail-row"><span class="di">📍</span><span id="map-addr">Av. Adolfo López Mateos 1245, Col. Primo Verdad</span></div>
+        <div class="map-detail-row"><span class="di">📞</span><span id="map-phone">(449) 912-3456</span></div>
+        <div class="map-detail-row"><span class="di">⏰</span><span id="map-hours">Lun–Sáb 9:00–20:00, Dom 10:00–18:00</span></div>
+        <div class="map-detail-row"><span class="di">🅿️</span><span>Estacionamiento gratuito disponible</span></div>
+        <div class="map-actions">
+          <a href="https://maps.google.com" target="_blank" class="map-btn map-btn-primary">📌 Ver en Maps</a>
+          <a href="tel:4499123456" class="map-btn map-btn-ghost">📞 Llamar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BLOG ═══ -->
+<section id="blog" class="section section-alt">
+  <div class="sec-header-row">
+    <div>
+      <span class="sec-label">Aprende y ahorra</span>
+      <h2 class="sec-title">Blog & <em>Consejos</em></h2>
+      <p class="sec-desc">Guías de compra, comparativas y tips para sacar el máximo de tus electrodomésticos.</p>
+    </div>
+    <a href="#" class="btn-link">Ver todos los artículos →</a>
+  </div>
+  <div class="blog-grid">
+    <div class="blog-card featured">
+      <div class="blog-img blog-img-lg" style="background:linear-gradient(135deg,#0f1a0f,#1a3a1a)">🧊</div>
+      <div class="blog-body">
+        <span class="blog-tag">Guía de Compra</span>
+        <div class="blog-title">¿Refrigerador de 1 o 2 puertas? La guía definitiva para Aguascalientes 2025</div>
+        <div class="blog-excerpt">Comparamos capacidad, eficiencia energética y precio para ayudarte a decidir cuál se adapta mejor a tu familia y al clima de Aguascalientes.</div>
+        <div class="blog-meta"><span>📅 14 Abr 2025</span><a href="#" class="blog-read">Leer artículo →</a></div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-img blog-img-sm" style="background:linear-gradient(135deg,#0f0f1a,#1a1a3a)">❄️</div>
+      <div class="blog-body">
+        <span class="blog-tag">Tips</span>
+        <div class="blog-title">Cómo calcular los BTU correctos para Aguascalientes</div>
+        <div class="blog-excerpt">El clima seco y cálido de AGS requiere un cálculo específico. Te explicamos paso a paso.</div>
+        <div class="blog-meta"><span>📅 2 Abr</span><a href="#" class="blog-read">Leer →</a></div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-img blog-img-sm" style="background:linear-gradient(135deg,#1a0f0f,#3a1a1a)">🫧</div>
+      <div class="blog-body">
+        <span class="blog-tag">Mantenimiento</span>
+        <div class="blog-title">5 errores que arruinan tu lavadora (y cómo evitarlos)</div>
+        <div class="blog-excerpt">Desde sobrecargar el tambor hasta detergente incorrecto. Protege tu inversión.</div>
+        <div class="blog-meta"><span>📅 22 Mar</span><a href="#" class="blog-read">Leer →</a></div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-img blog-img-sm" style="background:linear-gradient(135deg,#1a1a0f,#3a3a1a)">🔥</div>
+      <div class="blog-body">
+        <span class="blog-tag">Comparativa</span>
+        <div class="blog-title">Estufa a gas vs eléctrica: ¿Cuál conviene más en AGS?</div>
+        <div class="blog-excerpt">Analizamos costos reales según las tarifas de gas LP en Aguascalientes.</div>
+        <div class="blog-meta"><span>📅 10 Mar</span><a href="#" class="blog-read">Leer →</a></div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-img blog-img-sm" style="background:linear-gradient(135deg,#0f1a1a,#1a3a3a)">🏠</div>
+      <div class="blog-body">
+        <span class="blog-tag">Smart Home</span>
+        <div class="blog-title">Crea tu hogar inteligente desde $3,000 pesos</div>
+        <div class="blog-excerpt">Conecta tus electrodomésticos y controla todo desde el celular con poco presupuesto.</div>
+        <div class="blog-meta"><span>📅 1 Mar</span><a href="#" class="blog-read">Leer →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section id="faq" class="section">
+  <div class="sec-header" style="text-align:center">
+    <span class="sec-label">Preguntas frecuentes</span>
+    <h2 class="sec-title">Todo lo que <em>necesitas saber</em></h2>
+  </div>
+  <div class="faq-grid">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)"><span>¿Hacen entregas el mismo día?</span><div class="faq-icon">+</div></div>
+      <div class="faq-a">Sí, realizamos entregas el mismo día en toda la zona metropolitana de Aguascalientes para compras realizadas antes de las 2:00 PM. Las compras posteriores se entregan al día hábil siguiente sin costo adicional.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)"><span>¿Incluyen instalación?</span><div class="faq-icon">+</div></div>
+      <div class="faq-a">La instalación básica está incluida sin costo en lavadoras, secadoras y refrigeradores. Para aires acondicionados mini split, ofrecemos instalación con técnico certificado a un costo adicional según el tipo de instalación requerida.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)"><span>¿Cómo funciona el financiamiento 18 MSI?</span><div class="faq-icon">+</div></div>
+      <div class="faq-a">Aceptamos todas las tarjetas de crédito bancarias. El plan de 18 meses sin intereses está disponible para compras mayores a $3,000. Solo debes presentar tu tarjeta al momento de pago, ya sea en tienda física o al recibir tu pedido a domicilio.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)"><span>¿Qué pasa si mi aparato llega dañado?</span><div class="faq-icon">+</div></div>
+      <div class="faq-a">Tienes 30 días para reportar cualquier defecto de fábrica o daño en la entrega. Coordinamos la recolección y reposición del producto sin costo. En caso de daño visible al momento de la entrega, el cliente puede rechazarla en el acto.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)"><span>¿Tienen servicio técnico para aparatos de otras tiendas?</span><div class="faq-icon">+</div></div>
+      <div class="faq-a">Sí, nuestro centro de servicio atiende electrodomésticos de las marcas Samsung, LG, Bosch, Whirlpool y Mabe sin importar dónde los compraste. Diagnóstico gratuito con cualquier reparación contratada.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)"><span>¿Compran o reciben aparatos usados?</span><div class="faq-icon">+</div></div>
+      <div class="faq-a">Retiramos tu electrodoméstico viejo sin costo al momento de entregar el nuevo. No realizamos compra-venta de aparatos usados, pero gestionamos el retiro para disposición responsable conforme a la normativa ambiental.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NEWSLETTER ═══ -->
+<section id="newsletter">
+  <div class="nl-content">
+    <div class="nl-icon">📬</div>
+    <h2 class="nl-title">Ofertas exclusivas<br>directo a tu correo</h2>
+    <p class="nl-desc">Suscríbete y recibe descuentos únicos, guías de compra y novedades de ElectroAgs cada semana.</p>
+    <div class="nl-form">
+      <input type="email" class="nl-input" placeholder="tucorreo@email.com">
+      <button class="nl-btn">Suscribirme →</button>
+    </div>
+    <div class="nl-perks">
+      <span class="nl-perk">Sin spam</span>
+      <span class="nl-perk">Descuento de bienvenida 10%</span>
+      <span class="nl-perk">Cancela cuando quieras</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACTO ═══ -->
+<section id="contacto" class="section section-alt">
+  <div class="sec-header" style="text-align:center">
+    <span class="sec-label">Estamos aquí para ti</span>
+    <h2 class="sec-title">Contáctanos <em>Hoy</em></h2>
+    <p class="sec-desc" style="margin:0 auto">¿Tienes preguntas, necesitas cotización o quieres hablar con un asesor? Elige tu canal favorito.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;max-width:1000px;margin:0 auto">
+    <a href="tel:4499123456" style="background:var(--c-card);border:1px solid var(--c-border);border-radius:var(--r-lg);padding:2rem;text-align:center;transition:var(--transition);display:block" onmouseover="this.style.borderColor='var(--c-red)'" onmouseout="this.style.borderColor='var(--c-border)'">
+      <div style="font-size:2.5rem;margin-bottom:.8rem">📞</div>
+      <div style="font-weight:700;margin-bottom:.3rem">Llámanos</div>
+      <div style="color:var(--c-red);font-weight:700;font-size:1.1rem">(449) 912-3456</div>
+      <div style="font-size:.78rem;color:var(--c-subtle);margin-top:.3rem">Lun–Sáb 9:00–20:00</div>
+    </a>
+    <a href="https://wa.me/524499123456" target="_blank" style="background:var(--c-card);border:1px solid var(--c-border);border-radius:var(--r-lg);padding:2rem;text-align:center;transition:var(--transition);display:block" onmouseover="this.style.borderColor='#25D366'" onmouseout="this.style.borderColor='var(--c-border)'">
+      <div style="font-size:2.5rem;margin-bottom:.8rem">💬</div>
+      <div style="font-weight:700;margin-bottom:.3rem">WhatsApp</div>
+      <div style="color:#25D366;font-weight:700">Escríbenos ahora</div>
+      <div style="font-size:.78rem;color:var(--c-subtle);margin-top:.3rem">Respuesta en minutos</div>
+    </a>
+    <a href="mailto:ventas@electroags.com.mx" style="background:var(--c-card);border:1px solid var(--c-border);border-radius:var(--r-lg);padding:2rem;text-align:center;transition:var(--transition);display:block" onmouseover="this.style.borderColor='var(--c-red)'" onmouseout="this.style.borderColor='var(--c-border)'">
+      <div style="font-size:2.5rem;margin-bottom:.8rem">✉️</div>
+      <div style="font-weight:700;margin-bottom:.3rem">Email</div>
+      <div style="color:var(--c-red);font-weight:600;font-size:.82rem">ventas@electroags.com.mx</div>
+      <div style="font-size:.78rem;color:var(--c-subtle);margin-top:.3rem">Respuesta en 24h</div>
+    </a>
+    <a href="#sucursales" style="background:var(--c-card);border:1px solid var(--c-border);border-radius:var(--r-lg);padding:2rem;text-align:center;transition:var(--transition);display:block" onmouseover="this.style.borderColor='var(--c-amber)'" onmouseout="this.style.borderColor='var(--c-border)'">
+      <div style="font-size:2.5rem;margin-bottom:.8rem">📍</div>
+      <div style="font-weight:700;margin-bottom:.3rem">Visítanos</div>
+      <div style="color:var(--c-amber);font-weight:700">4 sucursales AGS</div>
+      <div style="font-size:.78rem;color:var(--c-subtle);margin-top:.3rem">Ver ubicaciones →</div>
+    </a>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <a href="#inicio" class="footer-logo">Electro<em>Ags</em></a>
+      <p class="footer-tagline">Desde 2009 llevando los mejores electrodomésticos a los hogares de Aguascalientes. Calidad, precio y servicio inigualables.</p>
+      <div class="footer-social">
+        <a href="#" class="fsoc" title="Facebook">📘</a>
+        <a href="#" class="fsoc" title="Instagram">📷</a>
+        <a href="#" class="fsoc" title="TikTok">🎵</a>
+        <a href="#" class="fsoc" title="YouTube">▶️</a>
+        <a href="#" class="fsoc" title="WhatsApp">💬</a>
+      </div>
+      <div class="footer-payment">
+        <p>Métodos de pago</p>
+        <div class="payment-icons">
+          <span class="pay-icon">VISA</span>
+          <span class="pay-icon">MC</span>
+          <span class="pay-icon">AMEX</span>
+          <span class="pay-icon">BBVA</span>
+          <span class="pay-icon">OXXO</span>
+          <span class="pay-icon">SPEI</span>
+          <span class="pay-icon">NÓMINA</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Productos</h4>
+      <ul>
+        <li><a href="#lavadoras">Lavadoras</a></li>
+        <li><a href="#refrigeradores">Refrigeradores</a></li>
+        <li><a href="#estufas">Estufas</a></li>
+        <li><a href="#aires">Aires AC</a></li>
+        <li><a href="#tv">Televisores</a></li>
+        <li><a href="#calentadores">Calentadores</a></li>
+        <li><a href="#smarthome">Smart Home</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Empresa</h4>
+      <ul>
+        <li><a href="#">Quiénes Somos</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#sucursales">Sucursales</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#comparador">Comparador</a></li>
+        <li><a href="#">Trabaja con Nosotros</a></li>
+        <li><a href="#">Proveedores</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Ayuda</h4>
+      <ul>
+        <li><a href="#faq">Preguntas Frecuentes</a></li>
+        <li><a href="#">Garantías</a></li>
+        <li><a href="#">Devoluciones</a></li>
+        <li><a href="#">Seguimiento de Pedido</a></li>
+        <li><a href="#">Centro de Servicio</a></li>
+        <li><a href="#">Manuales</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contacto</h4>
+      <div class="footer-contact-item">
+        <span class="fci-icon">📍</span>
+        <div class="fci-text">
+          <strong>Casa Matriz</strong>
+          Av. A. López Mateos 1245<br>Col. Primo Verdad<br>Aguascalientes, Ags. 20030
+        </div>
+      </div>
+      <div class="footer-contact-item">
+        <span class="fci-icon">📞</span>
+        <div class="fci-text">
+          <strong>Teléfono</strong>
+          (449) 912-3456
+        </div>
+      </div>
+      <div class="footer-contact-item">
+        <span class="fci-icon">✉️</span>
+        <div class="fci-text">
+          <strong>Email</strong>
+          ventas@electroags.com.mx
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 ElectroAgs. Todos los derechos reservados. Aguascalientes, México.</p>
+    <div class="footer-legal">
+      <a href="#">Aviso de Privacidad</a>
+      <a href="#">Términos y Condiciones</a>
+      <a href="#">Política de Devoluciones</a>
+      <a href="#">Cookies</a>
+    </div>
+  </div>
+</footer>
+
+<!-- BOTONES FLOTANTES -->
+<a href="https://wa.me/524499123456" target="_blank" class="wa-btn">
+  <div class="wa-dot"></div>
+  💬 WhatsApp
+</a>
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+/* ── CURSOR GLOW ── */
+document.addEventListener('mousemove',e=>{
+  const g=document.getElementById('cursor-glow');
+  g.style.left=e.clientX+'px';g.style.top=e.clientY+'px';
+});
+
+/* ── COUNTDOWN ── */
+const END=new Date().getTime()+(2*86400+14*3600+37*60)*1000;
+function tick(){
+  const d=END-Date.now();
+  if(d<0)return;
+  const pad=n=>String(Math.floor(n)).padStart(2,'0');
+  document.getElementById('cd-d').textContent=pad(d/86400000);
+  document.getElementById('cd-h').textContent=pad((d%86400000)/3600000);
+  document.getElementById('cd-m').textContent=pad((d%3600000)/60000);
+  document.getElementById('cd-s').textContent=pad((d%60000)/1000);
+}
+setInterval(tick,1000);tick();
+
+/* ── SCROLL TOP ── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('back-top').classList.toggle('show',window.scrollY>500);
+});
+
+/* ── FILTER TABS ── */
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+  });
+});
+
+/* ── FAV TOGGLE ── */
+document.querySelectorAll('.prod-fav').forEach(btn=>{
+  btn.addEventListener('click',e=>{
+    e.stopPropagation();
+    btn.textContent=btn.textContent==='♡'?'♥':'♡';
+    btn.style.background=btn.textContent==='♥'?'var(--c-red)':'rgba(0,0,0,.5)';
+    btn.style.borderColor=btn.textContent==='♥'?'var(--c-red)':'rgba(255,255,255,.1)';
+  });
+});
+
+/* ── FAQ ── */
+function toggleFaq(el){
+  const item=el.parentElement;
+  const wasOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+  if(!wasOpen)item.classList.add('open');
+}
+
+/* ── SUCURSALES ── */
+function selectSuc(card,name,addr,phone,hours){
+  document.querySelectorAll('.suc-card').forEach(c=>c.classList.remove('active'));
+  card.classList.add('active');
+  document.getElementById('map-name').textContent=name;
+  document.getElementById('map-title').textContent='ElectroAgs '+name;
+  document.getElementById('map-addr').textContent=addr;
+  document.getElementById('map-phone').textContent=phone;
+  document.getElementById('map-hours').textContent=hours;
+}
+
+/* ── NAVBAR SCROLL ── */
+let lastY=0;
+window.addEventListener('scroll',()=>{
+  const nav=document.querySelector('nav');
+  const y=window.scrollY;
+  nav.style.boxShadow=y>50?'0 4px 30px rgba(0,0,0,.5)':'none';
+  lastY=y;
+});
+
+/* ── SMOOTH REVEAL ON SCROLL ── */
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.opacity='1';
+      e.target.style.transform='translateY(0)';
+    }
+  });
+},{threshold:0.08});
+document.querySelectorAll('.prod-card,.svc-card,.test-card,.cat-tile,.blog-card,.suc-card').forEach(el=>{
+  el.style.opacity='0';
+  el.style.transform='translateY(20px)';
+  el.style.transition='opacity .5s ease, transform .5s ease, border-color .28s, box-shadow .28s';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
